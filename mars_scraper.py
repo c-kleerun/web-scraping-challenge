@@ -3,11 +3,17 @@ from splinter import Browser
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
+import pymongo
+from flask import Flask, render_template
+from webdriver_manager.chrome import ChromeDriverManager
 
+def init_browser():
+    executable_path = {'executable_path' : '/Users/krist/Downloads/chromedriver_win32/chromedriver'}
+    return Browser("chrome", **executable_path, headless=False)
 
 def scrape():
-    executable_path = {'executable_path' : '/Users/krist/Downloads/chromedriver_win32/chromedriver'}
-    browser = Browser("chrome", **executable_path, headless = False)
+    browser = init_browser()
+    mars = {}
 
     # Mars News
     # scrape the site (maybe use splinter?)
@@ -19,11 +25,8 @@ def scrape():
     soup = BeautifulSoup(html, 'html.parser')
 
     # First news title and paragraph
-    news_title = soup.find_all('div', class_="content_title")[1].text
-    news_p = soup.find('div', class_='article_teaser_body').text
-
-    print(news_title)
-    print(news_p)
+    mars['news_title'] = soup.find_all('div', class_="content_title")[1].text
+    mars['news_p'] = soup.find('div', class_='article_teaser_body').text
 
     # JPL Image of the Day
     # scrape the site
@@ -35,8 +38,7 @@ def scrape():
     soup = BeautifulSoup(html, 'html.parser')
     image=soup.find('a', class_='showimg')['href']
 
-    featured_image_url = 'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/'+ image
-    featured_image_url
+    mars['featured_image_url'] = 'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/'+ image
 
     # Mars Fact Table
     # Scrape Mars facts tables
@@ -46,8 +48,7 @@ def scrape():
     # find the table with mars only information
     df = tables[0]
     
-    mars_facts = df.to_html()
-    mars_facts
+    mars['mars_facts'] = df.to_html()
 
     # Mars Hemisphere URL
     # Go to the site
@@ -93,12 +94,12 @@ def scrape():
 
     # put title name and img_url into a dictionary
     hemi_zip = zip(h_names, hemisphere_img_urls)
-    hemisphere_dict = []
+    mars['hemisphere_dict'] = []
 
     for title, img in hemi_zip:
         mars_dict = {}
         mars_dict['title'] = title
         mars_dict['img_url'] = img
-        hemisphere_dict.append(mars_dict)
+        mars['hemisphere_dict'].append(mars_dict)
 
-    return hemisphere_dict
+    return mars
