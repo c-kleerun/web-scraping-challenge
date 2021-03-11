@@ -103,3 +103,5 @@ def scrape():
         mars['hemisphere_dict'].append(mars_dict)
 
     return mars
+
+# scrape()
