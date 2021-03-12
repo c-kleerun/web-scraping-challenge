@@ -48,7 +48,7 @@ def scrape():
     # find the table with mars only information
     df = tables[0]
     
-    mars['mars_facts'] = df.to_html()
+    mars['mars_facts'] = df.to_html(index=False)
 
     # Mars Hemisphere URL
     # Go to the site
