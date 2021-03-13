@@ -21,7 +21,7 @@
     <!-- Mars Info -->
         <div class="row" id="news">
             <div class="col-md-12">
-                <h4 class="heading">{{ mars.news_title }}</h4>
+                <h4 class="heading"><b>{{ mars.news_title }}</b></h4>
                 <p>{{ mars.news_p }}</p>
             </div>
         </div>
@@ -29,12 +29,12 @@
         <div class="container px-4 mt-5" id="img_facts">
             <div class="row gx-5" id="featured_img">
                 <div class="col col-md-8">
-                    <h4 class="heading">Featured Mars Image</h4>
+                    <h4 class="heading"><b>Featured Mars Image</b></h4>
                     <img src= "{{ mars.featured_image_url }}" class="img-responsive" alt="Featured Mars Image">
                 </div>
                 
                 <div id="facts_table" class="col col-md-4">
-                    <h5 class="heading">Mars Facts</h5>
+                    <h4 class="heading"><b>Mars Facts</b></h4>
                     <table border="1">
                         {{ mars.mars_facts|safe }}
                     </table>
@@ -42,32 +42,37 @@
                     
             </div>
         </div>
-        <hr>
-        <div class="container" id="hemispheres">
+        <hr style="border-width: 5px">
+
             <div class="p-3 border bg-light">
                 <div class="col-md-12">
-                <h3 class="heading text-center">Mars Hemispheres</h3>
+                <h3 class="heading text-center"><b>Mars Hemispheres</b></h3>
                 <hr class="narrow">
                 </div>
 
-                <div class="card mb-3">
-                    {% for pic in mars.hemisphere_dict[0:2] %}
-                    <img class="card-img-top" src="{{ pic['img_url'] }}" class="img_fluid" alt="{{ pic['title'] }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ pic['title'] }}</h5>
+                <div class="row gx-2">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            {% for pic in mars.hemisphere_dict[0:2] %}
+                            <img class="card-img-top" src="{{ pic['img_url'] }}" class="img-fluid" style="width: 75%;" alt="{{ pic['title'] }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ pic['title'] }}</h5>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% endfor %}
-                </div>
-
-                <div class="card mb-3">
-                    {% for pic in mars.hemisphere_dict[2:4] %}
-                    <img class="card-img-top" src="{{ pic['img_url'] }}" class="img_flud" alt="{{ pic['title'] }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ pic['title'] }}</h5>
+                
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            {% for pic in mars.hemisphere_dict[2:4] %}
+                            <img class="card-img-top" src="{{ pic['img_url'] }}" class="img-fluid" style="width: 75%;" style="margin: 0;" alt="{{ pic['title'] }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ pic['title'] }}</h5>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
         </div>
     </div>
 </body>
