@@ -17,7 +17,7 @@ def index():
 def web():
     mars = mongo.db.mars
     mars_data = mars_scraper.scrape()
-    mars.update_many({}, mars_data, upsert=True)
+    mars.update({}, mars_data, upsert=True)
     return redirect("/", code=302)
 
 if __name__ == "__main__":

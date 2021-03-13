@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mission to Mars</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
@@ -25,7 +25,7 @@
                 <p>{{ mars.news_p }}</p>
             </div>
         </div>
-
+        <hr>
         <div class="container px-4 mt-5" id="img_facts">
             <div class="row gx-5" id="featured_img">
                 <div class="col col-md-8">
@@ -35,14 +35,14 @@
                 
                 <div id="facts_table" class="col col-md-4">
                     <h5 class="heading">Mars Facts</h5>
-                    <table border="1" class="dataframe">
+                    <table border="1">
                         {{ mars.mars_facts|safe }}
                     </table>
                 </div>
                     
             </div>
         </div>
-        <hr class="bold">
+        <hr>
         <div class="container" id="hemispheres">
             <div class="p-3 border bg-light">
                 <div class="col-md-12">
@@ -50,26 +50,22 @@
                 <hr class="narrow">
                 </div>
 
-                <div class="col-md-6">
-                    <div class="col-md-12">
-                        {% for pic in mars.hemisphere_dict[0:2] %}           
-                            <img class = "img img-thumbnail" src="{{ pic['img_url'] }}" alt="hemisphere" style="width:50%;">
-                            <div class="caption"style="font-weight: bold;">
-                                {{ pic['title'] }}
-                            </div>                                           
-                        {% endfor %}
+                <div class="card mb-3">
+                    {% for pic in mars.hemisphere_dict[0:2] %}
+                    <img class="card-img-top" src="{{ pic['img_url'] }}" class="img_fluid" alt="{{ pic['title'] }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pic['title'] }}</h5>
                     </div>
+                    {% endfor %}
                 </div>
-                <div class="col-md-6">
-                    <div class="col-md-12">
-                        {% for pic in mars.hemisphere_dict[2:4] %}
-                                        
-                            <img src="{{ pic['img_url'] }}" alt="hemisphere" style="width:50%;">
-                            <div class="caption "style="font-weight: bold;">
-                                {{ pic['title'] }}
-                            </div>                                           
-                        {% endfor %}
+
+                <div class="card mb-3">
+                    {% for pic in mars.hemisphere_dict[2:4] %}
+                    <img class="card-img-top" src="{{ pic['img_url'] }}" class="img_flud" alt="{{ pic['title'] }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pic['title'] }}</h5>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
